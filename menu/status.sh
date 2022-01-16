@@ -29,7 +29,7 @@ declare ingfo=()
 
 wsdrop=$(systemctl status ws-nontls| grep -i "active (running)")
 wstls=$(systemctl status ws-tls | grep -i "active (running)")
-#wsopen=$(systemctl status ws-openssh | grep -i "active (running)")
+wsopen=$(systemctl status ws-openssh | grep -i "active (running)")
 wsovpn=$(systemctl status ws-ovpn | grep -i "active (running)")
 v2ray=$(systemctl status xray@v2ray-tls | grep -i "active (running)")
 v2none=$(systemctl status xray@v2ray-nontls | grep -i "active (running)")
@@ -46,9 +46,8 @@ sstp=$(systemctl status accel-ppp | grep -i "active (running)")
 l2tp=$(systemctl status xl2tpd | grep -i "active (running)")
 pptp=$(systemctl status pptpd | grep -i "active (running)")
 wg=$(systemctl status wg-quick@wg0 | grep -i "active (exited)")
-
 ssh=$(systemctl status ssh | grep -i "active (running)")
-ssl=$(systemctl status stunnel5 | grep -i "active (running)")
+ssl=$(systemctl status stunnel4 | grep -i "active (running)")
 drop=$(systemctl status dropbear | grep -i "active (running)")
 ovpn=$(systemctl status openvpn | grep -i "active (exited)")
 nginx=$(systemctl status nginx | grep -i "active (running)")
@@ -463,7 +462,7 @@ sec=10
                 /etc/init.d/ssh restart
                 /etc/init.d/dropbear restart
                 /etc/init.d/sslh restart
-                /etc/init.d/stunnel5 restart
+                /etc/init.d/stunnel4 restart
                 /etc/init.d/openvpn restart
                 /etc/init.d/fail2ban restart
                 /etc/init.d/cron restart
