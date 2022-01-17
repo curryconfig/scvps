@@ -148,7 +148,7 @@ apt -y install sslh -y
 #SSLH
 apt-get install sslh -y
 #Forward 443 = ws-ssl-stunnel4-dropbear
-wget -O /etc/default/sslh "https://vpnkuy.site/websocket/sslh.conf"
+wget -O /etc/default/sslh "https://${geovpn}/sslh.conf"
 service sslh restart
 
 # install webserver
