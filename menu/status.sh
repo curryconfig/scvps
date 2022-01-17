@@ -27,10 +27,6 @@ declare ingfo=()
              
 #=====================================
 
-wsdrop=$(systemctl status ws-dropbear.service| grep -i "active (running)")
-wstls=$(systemctl status ws-stunnel.service| grep -i "active (running)")
-wsopen=$(systemctl status ws-openssh.service| grep -i "active (running)")
-wsovpn=$(systemctl status ws-openvpn.service| grep -i "active (running)")
 v2ray=$(systemctl status xray@v2ray-tls | grep -i "active (running)")
 v2none=$(systemctl status xray@v2ray-nontls | grep -i "active (running)")
 vless=$(systemctl status xray@vless-tls | grep -i "active (running)")
@@ -59,36 +55,12 @@ ksslh=$(systemctl status sslh | grep -i "active (running)")
 ohp=$(systemctl status dropbear-ohp | grep -i "active (running)")
 ohq=$(systemctl status openvpn-ohp | grep -i "active (running)")
 ohr=$(systemctl status ssh-ohp | grep -i "active (running)")
+wsdropbear=$(systemctl status ws-dropbear | grep -i "active (running)")
+wsopen=$(systemctl status ws-openssh | grep -i "active (running)")
+wsopenvpn=$(systemctl status ws-openvpn | grep -i "active (running)")
+wsstunnel=$(systemctl status ws-stunnel | grep -i "active (running)")
 
 #======================================
-
-if [[ $wsdrop == "" ]]; then
-      swsdrop=$ERROR
-      ingfo+=("WebSocket Dropbear")
-      dahlah+=("err1")
-else
-      swsdrop=$AKTIF
-      mantap+=("hore1")
-fi
-
-if [[ $wstls == "" ]]; then
-      swstls=$ERROR
-      ingfo+=("WebSocket TLS")
-      dahlah+=("err2")
-else
-      swstls=$AKTIF
-      mantap+=("hore2")
-fi
-
-if [[ $wsovpn == "" ]]; then
-      swsovpn=$ERROR
-      ingfo+=("WebSocket ovpn")
-      dahlah+=("err3")
-else
-      swsovpn=$AKTIF
-      mantap+=("hore3")
-
-fi
 
 if [[ $v2ray == "" ]]; then
       sv2ray=$ERROR
@@ -347,14 +319,41 @@ else
       mantap+=("hore31")
 fi
 
-#if [[ $wsopen == "" ]]; then
-     # swsopen=$ERROR
-     # ingfo+=("websocket openvpn")
-     # dahlah+=("err33")
-#else
-     # swsopen=$AKTIF
-     # mantap+=("hore33")
-#fi
+if [[ $wsdropbear == "" ]]; then
+      swsdropbear=$ERROR
+      ingfo+=("Websocket Dropbear")
+      dahlah+=("err32")
+else
+      swsdropbear=$AKTIF
+      mantap+=("hore32")
+fi
+
+if [[ $wsopen == "" ]]; then
+      swsopen=$ERROR
+      ingfo+=("Websocket Openssh")
+      dahlah+=("err33")
+else
+      swsopen=$AKTIF
+      mantap+=("hore33")
+fi
+
+if [[ $wsopenvpn == "" ]]; then
+      swsopenvpn=$ERROR
+      ingfo+=("Websocket OpenVPN")
+      dahlah+=("err34")
+else
+      swsopenvpn=$AKTIF
+      mantap+=("hore34")
+fi
+
+if [[ $wsstunnel == "" ]]; then
+      swsstunnel=$ERROR
+      ingfo+=("Websocket SSL")
+      dahlah+=("err35")
+else
+      swsstunnel=$AKTIF
+      mantap+=("hore35")
+fi
 
 jumlah1="${#mantap[@]}"
 jumlah2="${#dahlah[@]}"
@@ -387,10 +386,10 @@ echo -e " $bd - OpenVPN            $off                : $sovpn "
 echo -e " $bd - Open HTTP Puncher Dropbear $off        : $sohp "
 echo -e " $bd - Open HTTP Puncher OpenVPN $off         : $sohq "
 echo -e " $bd - Open HTTP Puncher SSH $off             : $sohr "
-echo -e " $bd - WebSocket Dropbear $off                : $swsdrop"
+echo -e " $bd - WebSocket Dropbear $off                : $swsdropbear"
 echo -e " $bd - WebSocket OpenSSH   $off               : $swsopen"
-echo -e " $bd - WebSocket OpenVPN  $off                : $swsovpn"
-echo -e " $bd - WebSocket TLS    $off                  : $swstls"
+echo -e " $bd - WebSocket OpenVPN  $off                : $swsopenvpn"
+echo -e " $bd - WebSocket TLS    $off                  : $swsstunnel"
 echo -e " $bd - VMess TLS         $off                 : $sv2ray "
 echo -e " $bd - VMess NON-TLS    $off                  : $sv2none "
 echo -e " $bd - VLess TLS          $off                : $svless "
@@ -439,10 +438,10 @@ sec=10
          echo -e " \n${green} Merestart Services... ${off}"
          sleep 1
                 systemctl restart ssrmu
-                systemctl restart ws-dropbear.service
-                systemctl restart ws-openssh.service
-                systemctl restart ws-openvpn.service
-                systemctl restart ws-stunnel.service
+                systemctl restart ws-dropbear
+                systemctl restart ws-openssh
+                systemctl restart ws-openvpn
+                systemctl restart ws-stunnel
                 systemctl restart xray@v2ray-tls
                 systemctl restart xray@v2ray-nontls
                 systemctl restart xray@vless-tls
@@ -453,7 +452,6 @@ sec=10
                 systemctl restart pptpd
                 systemctl restart ipsec
                 systemctl restart accel-ppp
-                systemctl restart ws-ovpn
                 systemctl restart wg-quick@wg0
                 systemctl restart ssh-ohp
                 systemctl restart dropbear-ohp
