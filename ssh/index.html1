@@ -1,9 +1,20 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<html>
-<head>
-<meta http-equiv="REFRESH" content="0;url=https://github.com/geovpn/scriptvps">
-</head>
-<body>
-<p>URL Redirection</p>
-</body>
-</html>
+<!DOCTYPE html>
+<style>
+.html-marquee {
+  height:1700px;
+  width:950px;
+  background-color:transparent;
+  font-family: system-ui;
+  font-size:35px;
+  color:#12ffeb;
+  font-weight:bold;
+}
+</style>
+<marquee class="html-marquee" direction="up" behavior="alternate" scrollamount="20">
+<center>Setup VPS By GEO ANAK NTB !!!</center>
+<center></center>
+<center>Info / contact Order :<center>
+<center>Whatsapp : +6282339191527<center>
+<center>Telegram : @sampiiiiu<center>
+<center>Testimoni : @testikuy_mang</center>
+</marquee>
