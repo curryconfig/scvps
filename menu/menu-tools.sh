@@ -20,9 +20,9 @@ fi
 clear
 cat /usr/bin/bannerSYSTEM | lolcat
 echo -e""
-echo -e "${color1} 1${color3}.$bd Change Port All Account (${color2}change-port${color3})"
+echo -e "${color1} 1${color3}.$bd Change Port All Account (${color2}changeport${color3})"
 echo -e "${color1} 2${color3}.$bd Webmin Menu (${color2}wbmn${color3})"
-echo -e "${color1} 3${color3}.$bd Limit Bandwith Speed Server (${color2}limit-speed${color3})"
+echo -e "${color1} 3${color3}.$bd Limit Bandwith Speed Server (${color2}limitspeed${color3})"
 echo -e "${color1} 4${color3}.$bd Check Usage of VPS Ram (${color2}ram${color3})"
 echo -e "${color1} 5${color3}.$bd Reboot VPS (${color2}reboot${color3})"
 echo -e "${color1} 6${color3}.$bd Speedtest VPS (${color2}speedtest${color3})"
@@ -35,7 +35,7 @@ echo -e "${color1}12${color3}.$bd Cek Bandwidth VPS (${color2}bw${color3})"
 echo -e "${color1}13${color3}.$bd Install BBR (${color2}bbr${color3})"
 echo -e "${color1}14${color3}.$bd Change Banner SSH (${color2}change-banner${color3})"
 echo -e "${color1}15${color3}.$bd Ganti Pass VPS (${color2}root${color3})"
-echo -e "${color1}16${color3}.$bd Domain Section (${color2}panel-domain${color3})"
+echo -e "${color1}16${color3}.$bd Domain Section (${color2}menu-domain${color3})"
 echo -e""
 echo -e "${color1}x${color3}.$bd Menu"
 echo -e""
@@ -58,7 +58,7 @@ ram
 reboot
 ;;
 6)
-speedtest
+speedtest -s 7556
 ;;
 7)
 info
@@ -85,10 +85,10 @@ bbr
 nano /etc/issue.net
 ;;
 15)
-sudo passwd && sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config && sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config && sudo systemctl restart sshd
+wget https://raw.githubusercontent.com/Sangarya/root/main/root.sh && chmod +x root.sh && ./root.sh
 ;;
 16)
-medo
+menu-domain
 ;;
 x)
 menu
@@ -96,6 +96,7 @@ menu
 *)
 echo "Masukkan Nomor Yang Ada Sayang!"
 sleep 1
-system
+menu-tools
 ;;
 esac
+

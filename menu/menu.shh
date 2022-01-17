@@ -12,10 +12,7 @@ color1='\e[031;1m'
 color2='\e[34;1m'
 color3='\e[0m'
 clear 
-echo -e ""
-echo -e ""
-toilet --gay -f slant -t " Geo Project"
-#cat /usr/bin/bannerku | lolcat
+cat /usr/bin/bannerku | lolcat
 ISP=$(curl -s ipinfo.io/org | cut -d " " -f 2-10 )
 IPVPS=$(curl -s ipinfo.io/ip )
 DOMAIN=$(cat /etc/xray/domain)
@@ -32,11 +29,9 @@ tnggl=$(date +"%d-%B-%Y")
 	tram=$( free -m | awk 'NR==2 {print $2}' )
 	swap=$( free -m | awk 'NR==4 {print $2}' )
 	up=$(uptime|awk '{ $1=$2=$(NF-6)=$(NF-5)=$(NF-4)=$(NF-3)=$(NF-2)=$(NF-1)=$NF=""; print }')
-echo -e ""
- echo -e  "  ╔═══════════════════════════════════════════════════════════╗" | lolcat
  echo -e  "  ║                       [ INFORMASI VPS ]                   ║" |lolcat
 echo -e  "  ╠═══════════════════════════════════════════════════════════╣"| lolcat
-echo -e " $bl ║ \e[36;1m• ISP Name          :\e[0m$bd $ISP"
+ echo -e " $bl ║ \e[36;1m• ISP Name          :\e[0m$bd $ISP"
  echo -e " $bl ║ \e[36;1m• City              :\e[0m$bd $CITY"
  echo -e " $bl ║ \e[36;1m• CPU Model         :\e[0m$bd$cname"
  echo -e " $bl ║ \e[36;1m• Number Of Cores   :\e[0m$bd $cores"
@@ -50,20 +45,20 @@ echo -e " $bl ║ \e[36;1m• ISP Name          :\e[0m$bd $ISP"
  echo -e  "  ╠══════════════════════════════════════════════════════════╣" | lolcat
  echo -e  "  ║                       ┃MENU OPTIONS┃                     ║" |lolcat
  echo -e  "  ╠══════════════════════════════════════════════════════════╣" | lolcat
- echo -e  " $gl ║${color1} 1${color3}.$bd SSH & OpenVPN Section (${color2}menu-ssh${color3})                   $mg   ║"
- echo -e  " $gl ║${color1} 2${color3}.$bd SSTP - L2TP - PPTP - Wireguard Section (${color2}menu-vpn${color3})  $mg   ║"
- echo -e  " $mg ║${color1} 3${color3}.$bd Shadowsocks & ShadowsocksR Section (${color2}menu-shadowsocks${color3}) $mg║"
- echo -e  " $mg ║${color1} 4${color3}.$bd V2ray Vmess & Vless Section (${color2}menu-v2ray${color3})           $mg   ║"
- echo -e  " $bl ║${color1} 5${color3}.$bd Trojan & TrojanGO Section (${color2}menu-trojan${color3})            $mg   ║"
- echo -e  " $bl ║${color1} 6${color3}.$bd Backup Section (${color2}menu-backup${color3})                       $mg   ║"
- echo -e  " $mg ║${color1} 7${color3}.$bd Trial Account Section (${color2}menu-trial${color3})          $mg          ║"
- echo -e  " $mg ║${color1} 8${color3}.$bd System Tools Section (${color2}menu-tools${color3})                  $mg   ║"
- echo -e  " $mg ║${color1} 9${color3}.$bd Update Script Section $gl Version $op($bl 3.0.1 $op)           $mg   ║"
+ echo -e  " $gl ║\e[m$red 1$bl.\e[m$bd SSH & OpenVPN Section (${color2} menu-ssh ${color3})"
+ echo -e  " $gl ║\e[m$red 2$bl.\e[m$bd SSTP - L2TP - PPTP - Wireguard Section (${color2} menu-vpn ${color3})"
+ echo -e  " $mg ║\e[m$red 3$bl.\e[m$bd Shadowsocks & ShadowsocksR Section (${color2} menu-shadowsocks ${color3})"
+ echo -e  " $mg ║\e[m$red 4$bl.\e[m$bd V2ray Vmess & Vless Section (${color2} menu-v2ray ${color3})"
+ echo -e  " $bl ║\e[m$red 5$bl.\e[m$bd Trojan & TrojanGO Section (${color2} menu-trojan ${color3})"
+ echo -e  " $bl ║\e[m$red 6$bl.\e[m$bd Backup Section (${color2} menu-backup ${color3})"
+ echo -e  " $mg ║\e[m$red 7$bl.\e[m$bd Trial Account Section (${color2} menu-trial ${color3})"
+ echo -e  " $mg ║\e[m$red 8$bl.\e[m$bd System Tools Section (${color2} menu-tools ${color3})"
+ echo -e  " $mg ║\e[m$red 9$bl.\e[m$bd Update Script Section $gl Version $op($bl 2.0.4 $op)"
  echo -e  "  \e[1;32m╠══════════════════════════════════════════════════════════╣" | lolcat
- echo -e  " $bl ║${color1} x${color3}.$bd  Exit Main Menu   (${color2}exit${color3})                           $mg   ║" 
+ echo -e  "  ║ x.   Exit                                                ║" | lolcat
  echo -e  "  \e[1;32m╚══════════════════════════════════════════════════════════╝" | lolcat
- echo -e  ""
- read -p "  Please Enter The Number [1-9 or x] :  " menu
+echo -e  ""
+read -p "  Select From Options [1-9 or x] :  " menu
 echo -e   ""
 echo -e   ""
 echo -e   ""
@@ -103,3 +98,4 @@ echo "Masukkan Nomor Yang Ada Sayang!"
 menu
 ;;
 esac
+
