@@ -61,10 +61,10 @@ ver=$VERSION_ID
 country=ID
 state=Indonesia
 locality=Indonesia
-organization=geovpn
-organizationalunit=geovpn
-commonname=geovpn
-email=geovpnstore@gmail.com
+organization=www.geogabut.com
+organizationalunit=www.geogabut.com
+commonname=www.geogabut.com
+email=paoandest@gmail.com
 
 # simple password minimal
 wget -O /etc/pam.d/common-password "https://${geovpn}/password"
@@ -72,7 +72,6 @@ chmod +x /etc/pam.d/common-password
 
 # go to root
 cd
-
 # Edit file /etc/systemd/system/rc-local.service
 cat > /etc/systemd/system/rc-local.service <<-END
 [Unit]
@@ -118,38 +117,14 @@ apt-get remove --purge exim4 -y
 # install wget and curl
 apt -y install wget curl
 
-# Install Requirements Tools
-apt install ruby -y
-apt install python -y
-apt install make -y
-apt install cmake -y
-apt install coreutils -y
-apt install rsyslog -y
-apt install net-tools -y
-apt install zip -y
-apt install unzip -y
-apt install nano -y
-apt install sed -y
-apt install gnupg -y
-apt install gnupg1 -y
-apt install bc -y
-apt install jq -y
-apt install apt-transport-https -y
-apt install build-essential -y
-apt install dirmngr -y
-apt install libxml-parser-perl -y
-apt install neofetch -y
-apt install git -y
-apt install lsof -y
-apt install libsqlite3-dev -y
-apt install libz-dev -y
-apt install gcc -y
-apt install g++ -y
-apt install libreadline-dev -y
-apt install zlib1g-dev -y
-apt install libssl-dev -y
-apt install libssl1.0-dev -y
-apt install dos2unix -y
+#figlet
+apt-get install figlet -y
+apt-get install ruby -y
+gem install lolcat
+apt -y install python
+apt -y install tmux
+sudo snap install lolcat
+sudo apt-get install figlet
 
 # set time GMT +7
 ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
@@ -158,33 +133,34 @@ ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
 sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
 
 # install
-
-# install
 apt-get --reinstall --fix-missing install -y bzip2 gzip coreutils wget screen rsyslog iftop htop net-tools zip unzip wget net-tools curl nano sed screen gnupg gnupg1 bc apt-transport-https build-essential dirmngr libxml-parser-perl neofetch git lsof
 echo "clear" >> .profile
 echo "figlet -f slant GEO GABUT | lolcat" >> .profile
 echo "sleep 0.5" >> .profile
 echo "clear" >> .profile
-echo "neofetch " >> .profile
+echo "neofetch" >> .profile
 echo "echo -e \" - Script Mod By Geo Gabut\" | lolcat" >> .profile
 echo "echo -e \"\x1b[96m - Silahkan Ketik\x1b[m \x1b[92mMENU\x1b[m \x1b[96mUntuk Melihat daftar Perintah\x1b[m\"" >> .profile
 
+# Install SSLH
+apt -y install sslh -y
+
+#SSLH
+apt-get install sslh -y
+#Forward 443 = ws-ssl-stunnel4-dropbear
+wget -O /etc/default/sslh "https://vpnkuy.site/websocket/sslh.conf"
+service sslh restart
+
 # install webserver
-apt -y install nginx php php-fpm php-cli php-mysql libxml-parser-perl
+apt -y install nginx
+cd
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
-curl https://${geovpn}/nginx.conf > /etc/nginx/nginx.conf
-curl https://${geovpn}/vps.conf > /etc/nginx/conf.d/vps.conf
-sed -i 's/listen = \/var\/run\/php-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php/fpm/pool.d/www.conf
-useradd -m vps;
+wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/Sangarya/premium/main/file/nginx.conf"
 mkdir -p /home/vps/public_html
-echo "<?php phpinfo() ?>" > /home/vps/public_html/info.php
-chown -R www-data:www-data /home/vps/public_html
-chmod -R g+rw /home/vps/public_html
-cd /home/vps/public_html
-wget -O /home/vps/public_html/index.html "https://${geovpn}/index.html1"
+echo "<br><b><center><a href=\"https://wa.me/6282339191527\">GEO</a> - <a href=\"https://wa.me/6287756116610\">NURJANAH</a> GEO VPN STORE</center></b></br>" >> /home/vps/public_html/index.html
+wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/Sangarya/premium/main/file/vps.conf"
 /etc/init.d/nginx restart
-cd
 
 # install badvpn
 cd
@@ -210,58 +186,16 @@ sed -i 's/Port 22/Port 22/g' /etc/ssh/sshd_config
 apt -y install dropbear
 sed -i 's/NO_START=1/NO_START=0/g' /etc/default/dropbear
 sed -i 's/DROPBEAR_PORT=22/DROPBEAR_PORT=143/g' /etc/default/dropbear
-sed -i 's/DROPBEAR_EXTRA_ARGS=/DROPBEAR_EXTRA_ARGS="-p 109"/g' /etc/default/dropbear
+sed -i 's/DROPBEAR_EXTRA_ARGS=/DROPBEAR_EXTRA_ARGS="-p 109 -p 69 -p 77"/g' /etc/default/dropbear
 echo "/bin/false" >> /etc/shells
 echo "/usr/sbin/nologin" >> /etc/shells
 /etc/init.d/dropbear restart
 
-# text gambar
-#apt-get install boxes -y
-
-# color text
-#cd
-#rm -rf /root/.bashrc
-#wget -O /root/.profile "https://raw.githubusercontent.com/geovpn/scvps/main/.profile"
-
 # install squid
 cd
 apt -y install squid3
-wget -O /etc/squid/squid.conf "https://${geovpn}/squid3.conf"
+wget -O /etc/squid/squid.conf "https://raw.githubusercontent.com/Sangarya/premium/main/sshvpn/squid3.conf"
 sed -i $MYIP2 /etc/squid/squid.conf
-
-# Install SSLH
-apt -y install sslh
-rm -f /etc/default/sslh
-
-# Settings SSLH
-cat > /etc/default/sslh <<-END
-# Default options for sslh initscript
-# sourced by /etc/init.d/sslh
-
-# Disabled by default, to force yourself
-# to read the configuration:
-# - /usr/share/doc/sslh/README.Debian (quick start)
-# - /usr/share/doc/sslh/README, at "Configuration" section
-# - sslh(8) via "man sslh" for more configuration details.
-# Once configuration ready, you *must* set RUN to yes here
-# and try to start sslh (standalone mode only)
-
-RUN=yes
-
-# binary to use: forked (sslh) or single-thread (sslh-select) version
-# systemd users: don't forget to modify /lib/systemd/system/sslh.service
-DAEMON=/usr/sbin/sslh
-
-DAEMON_OPTS="--user sslh --listen 0.0.0.0:443 --ssh 127.0.0.1:109 --ssl 127.0.0.1:2096 --ssl 127.0.0.1:777 --http 127.0.0.1:700 --pidfile /var/run/sslh/sslh.pid -n"
-
-END
-
-# Restart Service SSLH
-service sslh restart
-systemctl restart sslh
-/etc/init.d/sslh restart
-/etc/init.d/sslh status
-/etc/init.d/sslh restart
 
 # setting vnstat
 apt -y install vnstat
@@ -279,9 +213,6 @@ systemctl enable vnstat
 /etc/init.d/vnstat restart
 rm -f /root/vnstat-2.6.tar.gz
 rm -rf /root/vnstat-2.6
-
-mkdir -p /usr/local/geovpn
-mkdir -p /etc/geovpn
 
 # install stunnel
 apt install stunnel4 -y
@@ -327,12 +258,18 @@ sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
 #OpenVPN
 wget https://${geovpn}/vpn.sh &&  chmod +x vpn.sh && ./vpn.sh
 
+# Install BBR
+wget https://${geovpn}/bbr.sh && chmod +x bbr.sh && ./bbr.sh
+
+# Ganti Banner
+wget -O /etc/issue.net "https://${geovpn}/issue.net"
+
 # install fail2ban
 apt -y install fail2ban
 
 # Instal DDOS Flate
 if [ -d '/usr/local/ddos' ]; then
-	echo; echo; echo "Please un-install the previous version first"
+	echo; echo; echo "Tolong  Uninstall Versi Sebelumnya!"
 	exit 0
 else
 	mkdir /usr/local/ddos
@@ -358,14 +295,9 @@ echo 'Config file is at /usr/local/ddos/ddos.conf'
 echo 'Please send in your comments and/or suggestions to zaf@vsnl.com'
 
 # banner /etc/issue.net
+wget -O /etc/issue.net "https://raw.githubusercontent.com/Sangarya/premium/main/file/banner.conf"
 echo "Banner /etc/issue.net" >>/etc/ssh/sshd_config
 sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/issue.net"@g' /etc/default/dropbear
-
-# Install BBR
-wget https://${geovpn}/bbr.sh && chmod +x bbr.sh && ./bbr.sh
-
-# Ganti Banner
-wget -O /etc/issue.net "https://${geovpn}/issue.net"
 
 # blockir torrent
 iptables -A FORWARD -m string --string "get_peers" --algo bm -j DROP
