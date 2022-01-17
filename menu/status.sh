@@ -27,10 +27,10 @@ declare ingfo=()
              
 #=====================================
 
-wsdrop=$(systemctl status ws-nontls| grep -i "active (running)")
-wstls=$(systemctl status ws-tls | grep -i "active (running)")
-wsopen=$(systemctl status ws-openssh | grep -i "active (running)")
-wsovpn=$(systemctl status ws-ovpn | grep -i "active (running)")
+wsdrop=$(systemctl status ws-dropbear.service| grep -i "active (running)")
+wstls=$(systemctl status ws-stunnel.service| grep -i "active (running)")
+wsopen=$(systemctl status ws-openssh.service| grep -i "active (running)")
+wsovpn=$(systemctl status ws-openvpn.service| grep -i "active (running)")
 v2ray=$(systemctl status xray@v2ray-tls | grep -i "active (running)")
 v2none=$(systemctl status xray@v2ray-nontls | grep -i "active (running)")
 vless=$(systemctl status xray@vless-tls | grep -i "active (running)")
@@ -388,7 +388,7 @@ echo -e " $bd - Open HTTP Puncher Dropbear $off        : $sohp "
 echo -e " $bd - Open HTTP Puncher OpenVPN $off         : $sohq "
 echo -e " $bd - Open HTTP Puncher SSH $off             : $sohr "
 echo -e " $bd - WebSocket Dropbear $off                : $swsdrop"
-#echo -e " $bd ® WebSocket OpenSSH   $off              : $swsopen"
+echo -e " $bd - WebSocket OpenSSH   $off               : $swsopen"
 echo -e " $bd - WebSocket OpenVPN  $off                : $swsovpn"
 echo -e " $bd - WebSocket TLS    $off                  : $swstls"
 echo -e " $bd - VMess TLS         $off                 : $sv2ray "
@@ -410,7 +410,7 @@ echo -e " $bd - Squid           $off                   : $ssquid "
 echo -e " $bd - Cron            $off                   : $scron "
 echo -e " $bd - Fail2Ban        $off                   : $sfail2ban "
 echo -e " $bd - VnStats         $off                   : $svnstat "
-echo -e " $bd - SSLH /SSH       $off                   : $sksslh "
+echo -e " $bd - SSL/SSH Multiplexer       $off         : $sksslh "
 echo -e ""
 echo -e "${cyan}=================-[ SERVICES STATUS ]-====================${off}"
 echo -e ""
@@ -439,9 +439,10 @@ sec=10
          echo -e " \n${green} Merestart Services... ${off}"
          sleep 1
                 systemctl restart ssrmu
-                systemctl restart ws-tls
-                systemctl restart ws-nontls
-                systemctl restart ws-ovpn
+                systemctl restart ws-dropbear.service
+                systemctl restart ws-openssh.service
+                systemctl restart ws-openvpn.service
+                systemctl restart ws-stunnel.service
                 systemctl restart xray@v2ray-tls
                 systemctl restart xray@v2ray-nontls
                 systemctl restart xray@vless-tls
