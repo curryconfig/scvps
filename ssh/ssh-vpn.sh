@@ -143,15 +143,6 @@ echo "running" >> .profile
 echo "echo -e \" - Script Mod By Geo Gabut\" | lolcat" >> .profile
 echo "echo -e \"\x1b[96m - Silahkan Ketik\x1b[m \x1b[92mMENU\x1b[m \x1b[96mUntuk Melihat daftar Perintah\x1b[m\"" >> .profile
 
-# Install SSLH
-apt -y install sslh -y
-
-#SSLH
-apt-get install sslh -y
-#Forward 443 = ws-ssl-stunnel4-dropbear
-wget -O /etc/default/sslh "https://${geovpn}/sslh.conf"
-service sslh restart
-
 # install webserver
 apt -y install nginx php php-fpm php-cli php-mysql libxml-parser-perl
 rm /etc/nginx/sites-enabled/default
@@ -260,6 +251,15 @@ cat key.pem cert.pem >> /etc/stunnel/stunnel.pem
 # konfigurasi stunnel
 sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
 /etc/init.d/stunnel4 restart
+
+# Install SSLH
+apt -y install sslh -y
+
+#SSLH
+apt-get install sslh -y
+#Forward 443 = ws-ssl-stunnel4-dropbear
+wget -O /etc/default/sslh "https://${geovpn}/sslh.conf"
+service sslh restart
 
 #OpenVPN
 wget https://${geovpn}/vpn.sh &&  chmod +x vpn.sh && ./vpn.sh
