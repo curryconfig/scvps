@@ -45,7 +45,9 @@ hariini=`date -d "0 days" +"%Y-%m-%d"`
 expi=`date -d "$masaaktif days" +"%Y-%m-%d"`
 echo -e "$Pass\n$Pass\n"|passwd $Login &> /dev/null
 echo -e ""
+echo -e "=============================="
 echo -e "Thank You For Using Our Services Trial SSH OpenVPN & Websocket Account Info"
+echo -e "=============================="
 echo -e "Username      : $Login"
 echo -e "Password      : $Pass"
 echo -e "Created       : $hariini"
