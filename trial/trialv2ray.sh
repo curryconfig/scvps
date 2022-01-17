@@ -10,13 +10,16 @@ white='\x1b[37m'
 bold='\033[1m'
 off='\x1b[m'
 flag='\x1b[47;41m'
-
-
-ISP=$(curl -s ipinfo.io/org | cut -d " " -f 2-10 )
-CITY=$(curl -s ipinfo.io/city )
-COUNTRY=$(curl -s ipinfo.io/country )
-
-MYIP=$(wget -qO- ipinfo.io/ip);
+MYIP=$(wget -qO- ipv4.icanhazip.com);
+echo "Checking VPS"
+IZIN=$( curl https://raw.githubusercontent.com/geovpn/perizinan/main/ip | grep $MYIP )
+if [ $MYIP = $IZIN ]; then
+echo -e "${green}Permission Accepted...${NC}"
+else
+echo -e "${red}Permission Denied!${NC}";
+echo "Only For Premium Users"
+exit 0
+fi
 clear
 source /var/lib/geovpnstore/ipvps.conf
 if [[ "$IP" = "" ]]; then
@@ -24,14 +27,17 @@ domain=$(cat /etc/xray/domain)
 else
 domain=$IP
 fi
+# Create Expried 
+masaaktif="1"
+exp=$(date -d "$masaaktif days" +"%Y-%m-%d")
+
 read -rp "Bug: " -e bug
 tls="$(cat ~/log-install.txt | grep -w "Vmess TLS" | cut -d: -f2|sed 's/ //g')"
 nontls="$(cat ~/log-install.txt | grep -w "Vmess None TLS" | cut -d: -f2|sed 's/ //g')"
-user=Trial-`</dev/urandom tr -dc X-Z0-9 | head -c2`
+# Make Random Username 
+user=Trial`</dev/urandom tr -dc X-Z0-9 | head -c4`
 uuid=$(cat /proc/sys/kernel/random/uuid)
-tnggl=$(date +"%R")
-read -p "Expired (Jam): " ktf
-exp=`date -d "$ktf hour" +"%R"`
+created=`date -d "0 days" +"%d-%m-%Y"`
 sed -i '/#xray-v2ray-tls$/a\### '"$user $exp"'\
 },{"id": "'""$uuid""'","alterId": '"0"',"email": "'""$user""'"' /etc/xray/v2ray-tls.json
 sed -i '/#xray-v2ray-nontls$/a\### '"$user $exp"'\
@@ -41,14 +47,14 @@ cat>/etc/xray/v2ray-$user-tls.json<<EOF
       "v": "2",
       "ps": "${user}",
       "add": "${domain}",
-      "port": "${nontls}",
+      "port": "${tls}",
       "id": "${uuid}",
       "aid": "0",
       "net": "ws",
       "path": "geo",
       "type": "none",
       "host": "",
-      "tls": "none"
+      "tls": "tls"
 }
 EOF
 cat>/etc/xray/v2ray-$user-nontls.json<<EOF
@@ -74,10 +80,9 @@ systemctl restart xray@v2ray-tls
 systemctl restart xray@v2ray-nontls
 service cron restart
 clear
-echo -e ""
-echo -e "${cyan}==================================${off}"
-echo -e "${purple} ~> TRIAL V2RAY VMESS${off}"
-echo -e "${cyan}==================================${off}"
+echo -e "${cyan}=======================${off}"
+echo -e "${purple} ~> TRIAL XRAY / VMESS${off}"
+echo -e "${cyan}=======================${off}"
 echo -e " Remarks        : ${user}"
 echo -e " Bug            : ${bug}"
 echo -e " Domain         : ${domain}"
@@ -93,6 +98,9 @@ echo -e "${purple}~> VMESS TLS : $off${xrayv2ray1}"
 echo -e "${cyan}==================================${off}"
 echo -e "${purple}~> VMESS NON-TLS : $off${xrayv2ray2}"
 echo -e "${cyan}==================================${off}"
-echo -e " ${green}Aktif Selama   : $ktf Jam"
+echo -e " ${green}Aktif Selama   : $masaaktif Hari"
 echo -e "${cyan}==================================${off}"
 echo -e ""
+echo -e "Script By GeoVPN" | lolcat
+echo -e ""
+
