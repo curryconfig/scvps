@@ -48,7 +48,7 @@ echo -e " $bl ║ \e[36;1m• ISP Name          :\e[0m$bd $ISP"
  echo -e " $mg ║ \e[36;1m• IP VPS            :\e[0m$bd $IPVPS"
  echo -e " $mg ║ \e[36;1m• Domain            :\e[0m$bd $DOMAIN"
  echo -e  "  ╠══════════════════════════════════════════════════════════╣" | lolcat
- echo -e  "  ║                       ┃MENU OPTIONS┃                     ║" |lolcat
+ echo -e  "  ║                       [ MENU OPTIONS ]                   ║" |lolcat
  echo -e  "  ╠══════════════════════════════════════════════════════════╣" | lolcat
  echo -e  " $gl ║${color1} 1${color3}.$bd SSH & OpenVPN Section (${color2}menu-ssh${color3})                   $mg   ║"
  echo -e  " $gl ║${color1} 2${color3}.$bd SSTP - L2TP - PPTP - Wireguard Section (${color2}menu-vpn${color3})  $mg   ║"
