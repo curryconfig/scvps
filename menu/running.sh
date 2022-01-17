@@ -66,7 +66,7 @@ vless_nontls_v2ray_status=$(systemctl status xray@vless-nontls | grep Active | a
 ssr_status=$(systemctl status ssrmu | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 trojan_server=$(systemctl status xray@trojan | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 dropbear_status=$(/etc/init.d/dropbear status | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
-stunnel_service=$(/etc/init.d/stunnel5 status | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
+stunnel_service=$(/etc/init.d/stunnel4 status | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 sstp_service=$(systemctl status accel-ppp | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 squid_service=$(/etc/init.d/squid status | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 ssh_service=$(/etc/init.d/ssh status | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
@@ -78,9 +78,10 @@ swg=$(echo "${wg}" | grep 'ActiveState=' | cut -f2 -d=)
 trgo="$(systemctl show trojan-go.service --no-page)"                                      
 strgo=$(echo "${trgo}" | grep 'ActiveState=' | cut -f2 -d=)  
 sswg=$(systemctl status wg-quick@wg0 | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
-wstls=$(systemctl status ws-tls | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
-wsdrop=$(systemctl status ws-nontls | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
-wsovpn=$(systemctl status ws-ovpn | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
+wstls=$(systemctl status ws-stunnel.service | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
+wsdrop=$(systemctl status ws-dropbear.service | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
+wsovpn=$(systemctl status ws-openssh.service | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
+kvpn_status=$(systemctl status ws-openvpn | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 osslh=$(systemctl status sslh | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 ohp=$(systemctl status dropbear-ohp | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 ohq=$(systemctl status openvpn-ohp | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
@@ -291,6 +292,13 @@ if [[ $ohr == "running" ]]; then
    sohr="${GREEN} Service Is Running ${NC}( Aktif )${NC}"
 else
    sohr="${RED} Service Is Not Running ${NC}( Not Aktif )${NC}"
+fi
+
+# STATUS SERVICE WEBSOCKET OPENSSH
+if [[ $wsope == "running" ]]; then 
+   swsope="${GREEN} Service Is Running ${NC}( Aktif )${NC}"
+else
+   swsope="${RED} Service Is Not Running ${NC}( Not Aktif )${NC}"
 fi
 
 # RAM USAGE
