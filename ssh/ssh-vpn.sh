@@ -119,6 +119,7 @@ apt -y install wget curl
 
 #figlet
 apt-get install figlet -y
+apt-get install toilet -y
 apt-get install ruby -y
 gem install lolcat
 apt -y install python
