@@ -153,14 +153,19 @@ wget -O /etc/default/sslh "https://${geovpn}/sslh.conf"
 service sslh restart
 
 # install webserver
-apt -y install nginx
-cd
+apt -y install nginx php php-fpm php-cli php-mysql libxml-parser-perl
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
-wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/Sangarya/premium/main/file/nginx.conf"
+curl https://${geovpn}/nginx.conf > /etc/nginx/nginx.conf
+curl https://${geovpn}/vps.conf > /etc/nginx/conf.d/vps.conf
+sed -i 's/listen = \/var\/run\/php-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php/fpm/pool.d/www.conf
+useradd -m vps;
 mkdir -p /home/vps/public_html
-echo "<br><b><center><a href=\"https://wa.me/6282339191527\">GEO</a> - <a href=\"https://wa.me/6287756116610\">NURJANAH</a> GEO VPN STORE</center></b></br>" >> /home/vps/public_html/index.html
-wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/Sangarya/premium/main/file/vps.conf"
+echo "<?php phpinfo() ?>" > /home/vps/public_html/info.php
+chown -R www-data:www-data /home/vps/public_html
+chmod -R g+rw /home/vps/public_html
+cd /home/vps/public_html
+wget -O /home/vps/public_html/index.html "https://${geovpn}/index.html1"
 /etc/init.d/nginx restart
 
 # install badvpn
