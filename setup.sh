@@ -53,6 +53,27 @@ echo -e "${NC}${LIGHT}Telegram : https://t.me/geovpn"
 exit 0
 fi
 rm -f setup.sh
+cd
+apt-get update --allow-releaseinfo-change -y > /dev/null
+
+apt-get update -y > /dev/null 
+apt-get upgrade -y > /dev/null
+#install figlet & lolcat
+clear
+MYIP=$(wget -qO- https://icanhazip.com);
+host=$(hostname);
+cat > /etc/hosts <<-END
+127.0.0.1       localhost.localdomain localhost
+127.0.1.1       localhost
+$MYIP   $host
+END
+
+apt-get install dbus -y > /dev/null
+sudo hostnamectl set-hostname Setup-Geo-Project
+
+apt-get install figlet -y > /dev/null
+apt-get install ruby -y > /dev/null
+gem install lolcat
 clear
 if [ -f "/etc/xray/domain" ]; then
 echo "Script Already Installed"
