@@ -61,10 +61,10 @@ ver=$VERSION_ID
 country=ID
 state=Indonesia
 locality=Indonesia
-organization=www.geogabut.com
-organizationalunit=www.geogabut.com
-commonname=www.geogabut.com
-email=paoandest@gmail.com
+organization=geovpnproject.net
+organizationalunit=geovpnproject.net
+commonname=geovpnproject.net
+email=admin@geovpnproject.net
 
 # simple password minimal
 wget -O /etc/pam.d/common-password "https://${geovpn}/password"
@@ -139,25 +139,32 @@ echo "clear" >> .profile
 echo "figlet -f slant GEO GABUT | lolcat" >> .profile
 echo "sleep 0.5" >> .profile
 echo "clear" >> .profile
-echo "running" >> .profile
+echo "neofetch" >> .profile
 echo "echo -e \" - Script Mod By Geo Gabut\" | lolcat" >> .profile
 echo "echo -e \"\x1b[96m - Silahkan Ketik\x1b[m \x1b[92mMENU\x1b[m \x1b[96mUntuk Melihat daftar Perintah\x1b[m\"" >> .profile
 
+# Install SSLH
+apt -y install sslh -y
+
+#SSLH
+apt-get install sslh -y
+#Forward 443 = ws-ssl-stunnel4-dropbear
+wget -O /etc/default/sslh "https://${geovpn}/sslh.conf"
+service sslh restart
+
 # install webserver
-apt -y install nginx php php-fpm php-cli php-mysql libxml-parser-perl
+apt -y install nginx
+cd
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
-curl https://${geovpn}/nginx.conf > /etc/nginx/nginx.conf
-curl https://${geovpn}/vps.conf > /etc/nginx/conf.d/vps.conf
-sed -i 's/listen = \/var\/run\/php-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php/fpm/pool.d/www.conf
-useradd -m vps;
+wget -O /etc/nginx/nginx.conf "https://${geovpn}/nginx.conf"
 mkdir -p /home/vps/public_html
-echo "<?php phpinfo() ?>" > /home/vps/public_html/info.php
-chown -R www-data:www-data /home/vps/public_html
-chmod -R g+rw /home/vps/public_html
+echo "<br><b><center><a href=\"https://wa.me/6282339191527\">GEO</a> - <a href=\"https://wa.me/6287756116610\">NURJANAH</a> GEO VPN STORE</center></b></br>" >> /home/vps/public_html/index.html
+wget -O /etc/nginx/conf.d/vps.conf "https://${geovpn}/vps.conf"
 cd /home/vps/public_html
 wget -O /home/vps/public_html/index.html "https://${geovpn}/index.html1"
 /etc/init.d/nginx restart
+
 
 # install badvpn
 cd
@@ -191,7 +198,7 @@ echo "/usr/sbin/nologin" >> /etc/shells
 # install squid
 cd
 apt -y install squid3
-wget -O /etc/squid/squid.conf "https://${geovpn}/squid3.conf"
+wget -O /etc/squid/squid.conf "https://raw.githubusercontent.com/Sangarya/premium/main/sshvpn/squid3.conf"
 sed -i $MYIP2 /etc/squid/squid.conf
 
 # setting vnstat
@@ -252,15 +259,6 @@ cat key.pem cert.pem >> /etc/stunnel/stunnel.pem
 sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
 /etc/init.d/stunnel4 restart
 
-# Install SSLH
-apt -y install sslh -y
-
-#SSLH
-apt-get install sslh -y
-#Forward 443 = ws-ssl-stunnel4-dropbear
-wget -O /etc/default/sslh "https://${geovpn}/sslh.conf"
-service sslh restart
-
 #OpenVPN
 wget https://${geovpn}/vpn.sh &&  chmod +x vpn.sh && ./vpn.sh
 
@@ -301,7 +299,7 @@ echo 'Config file is at /usr/local/ddos/ddos.conf'
 echo 'Please send in your comments and/or suggestions to zaf@vsnl.com'
 
 # banner /etc/issue.net
-wget -O /etc/issue.net "https://${geovpn}/issue.net"https://${geovpn}/issue.net"
+wget -O /etc/issue.net "https://raw.githubusercontent.com/Sangarya/premium/main/file/banner.conf"
 echo "Banner /etc/issue.net" >>/etc/ssh/sshd_config
 sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/issue.net"@g' /etc/default/dropbear
 
