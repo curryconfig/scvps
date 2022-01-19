@@ -59,7 +59,6 @@ clear
 echo -e ""
 echo -e "======-XRAYS/VLESS-======"
 echo -e "Remarks     : ${user}"
-echo -e "IP/Host     : ${MYIP}"
 echo -e "Address     : ${domain}"
 echo -e "Port TLS    : $tls"
 echo -e "Port No TLS : $nontls"
