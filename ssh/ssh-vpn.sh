@@ -35,7 +35,7 @@ geovpnn="raw.githubusercontent.com/geovpn/scvps/main/xray"
 geovpnnn="raw.githubusercontent.com/geovpn/scvps/main/trojango"
 
 # Link Hosting Kalian Untuk Stunnel5
-#geovpnnnn="raw.githubusercontent.com/geovpn/scvps/main/stunnel5"
+geovpnnnn="raw.githubusercontent.com/geovpn/scvps/main/stunnel5"
 
 # Link Hosting Kalian Untuk menu
 geovpnnnnn="raw.githubusercontent.com/geovpn/scvps/main/menu"
@@ -216,10 +216,24 @@ systemctl enable vnstat
 rm -f /root/vnstat-2.6.tar.gz
 rm -rf /root/vnstat-2.6
 
-# install stunnel
-apt install stunnel4 -y
-cat > /etc/stunnel/stunnel.conf <<-END
-cert = /etc/stunnel/stunnel.pem
+# install stunnel 5 
+cd /root/
+wget -q -O stunnel5.zip "https://${geovpnnnn}/stunnel5.zip"
+unzip -o stunnel5.zip
+cd /root/stunnel
+chmod +x configure
+./configure
+make
+make install
+cd /root
+rm -r -f stunnel
+rm -f stunnel5.zip
+mkdir -p /etc/stunnel5
+chmod 644 /etc/stunnel5
+
+# Download Config Stunnel5
+cat > /etc/stunnel5/stunnel5.conf <<-END
+cert = /etc/stunnel5/stunnel5.pem
 client = no
 socket = a:SO_REUSEADDR=1
 socket = l:TCP_NODELAY=1
@@ -247,15 +261,52 @@ connect = 127.0.0.1:1194
 
 END
 
-# certificate
+# make a certificate
 openssl genrsa -out key.pem 2048
 openssl req -new -x509 -key key.pem -out cert.pem -days 1095 \
 -subj "/C=$country/ST=$state/L=$locality/O=$organization/OU=$organizationalunit/CN=$commonname/emailAddress=$email"
-cat key.pem cert.pem >> /etc/stunnel/stunnel.pem
+cat key.pem cert.pem >> /etc/stunnel5/stunnel5.pem
 
-# konfigurasi stunnel
-sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
-/etc/init.d/stunnel4 restart
+# Service Stunnel5 systemctl restart stunnel5
+cat > /etc/systemd/system/stunnel5.service << END
+[Unit]
+Description=Stunnel5 Service
+Documentation=https://stunnel.org
+Documentation=https://github.com/geovpn
+After=syslog.target network-online.target
+
+[Service]
+ExecStart=/usr/local/geovpn/stunnel5 /etc/stunnel5/stunnel5.conf
+Type=forking
+
+[Install]
+WantedBy=multi-user.target
+END
+
+# Service Stunnel5 /etc/init.d/stunnel5
+wget -q -O /etc/init.d/stunnel5 "https://${geovpnnnn}/stunnel5.init"
+
+# Ubah Izin Akses
+chmod 600 /etc/stunnel5/stunnel5.pem
+chmod +x /etc/init.d/stunnel5
+cp /usr/local/bin/stunnel /usr/local/geovpn/stunnel5
+
+# Remove File
+rm -r -f /usr/local/share/doc/stunnel/
+rm -r -f /usr/local/etc/stunnel/
+rm -f /usr/local/bin/stunnel
+rm -f /usr/local/bin/stunnel3
+rm -f /usr/local/bin/stunnel4
+rm -f /usr/local/bin/stunnel5
+
+# Restart Stunnel 5
+systemctl stop stunnel5
+systemctl enable stunnel5
+systemctl start stunnel5
+systemctl restart stunnel5
+/etc/init.d/stunnel5 restart
+/etc/init.d/stunnel5 status
+/etc/init.d/stunnel5 restart
 
 #OpenVPN
 wget https://${geovpn}/vpn.sh &&  chmod +x vpn.sh && ./vpn.sh
