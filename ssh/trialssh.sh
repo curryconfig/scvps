@@ -10,6 +10,7 @@ BLUE='\033[0;34m'
 PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
 LIGHT='\033[0;37m'
+off='\x1b[m'
 # ==========================================
 # Getting
 MYIP=$(wget -qO- ipinfo.io/ip);
@@ -45,30 +46,32 @@ hariini=`date -d "0 days" +"%Y-%m-%d"`
 expi=`date -d "$masaaktif days" +"%Y-%m-%d"`
 echo -e "$Pass\n$Pass\n"|passwd $Login &> /dev/null
 echo -e ""
-echo -e "=============================="
-echo -e "Thank You For Using Our Services Trial SSH OpenVPN & Websocket Account Info"
-echo -e "=============================="
-echo -e "Username      : $Login"
+echo -e "${GREEN}==============================${off}"
+echo -e "${CYAN}Thank You For Using Our Services Trial SSH OpenVPN & Websocket Account Info${off}"
+echo -e "${GREEN}==============================${off}"
+echo -e "${CYAN}Username      : $Login"
 echo -e "Password      : $Pass"
 echo -e "Created       : $hariini"
-echo -e "Expired       : $expi"
-echo -e "=============================="
-echo -e "IP/Host       : ${domain} / $IP"
+echo -e "Expired       : $expi ${off}"
+echo -e "${GREEN}==============================${off}"
+echo -e "${CYAN}IP/Host       : ${domain} / $IP"
 echo -e "OpenSSH       : 443, 22"
 echo -e "Dropbear      : 443, 109, 143"
 echo -e "SSL/TLS       :$ssl"
 echo -e "Port Squid    :$sqd"
-echo -e "OHP           : SSH 8181, Dropbear 8282, OpenVPN 8383"
-echo -e "=============================="
-echo -e "SSH WS         : 2052, 2095"
+echo -e "OHP           : SSH 8181, Dropbear 8282, OpenVPN 8383${off}"
+echo -e "${GREEN}==============================${off}"
+echo -e "${CYAN}SSH WS         : 2052, 2095"
 echo -e "SSH WS SSL     : 443, 2096"
-echo -e "OpenVPN WS     : 2086"
-echo -e "=====Payload CDN Websocket======"
-echo -e "GET / HTTP/1.1[crlf]Host: ${domain}[crlf]Connection: Keep-Alive[crlf]User-Agent: [ua][crlf]Upgrade: websocket[crlf][crlf]"
-echo -e "=============================="
-echo -e "OpenVPN        : TCP 1194 http://${domain}:89/tcp.ovpn"
+echo -e "OpenVPN WS     : 2086${off}"
+echo -e "${GREEN}====Payload CDN Websocket====${off}"
+echo -e "${ORANGE}GET / HTTP/1.1[crlf]Host: ${domain}[crlf]Connection: Keep-Alive[crlf]User-Agent: [ua][crlf]Upgrade: websocket[crlf][crlf]${off}"
+echo -e "${GREEN}==============================${off}"
+echo -e "${CYAN}OpenVPN        : TCP 1194 http://${domain}:89/tcp.ovpn"
 echo -e "OpenVPN        : UDP 2200 http://${domain}:89/udp.ovpn"
 echo -e "OpenVPN        : SSL 990 http://${domain}:89/ssl.ovpn"
-echo -e "badvpn         : 7100-7300"
-echo -e "=============================="
-echo -e "Script By geovpn"
+echo -e "badvpn         : 7100-7300${off}"
+echo -e "${GREEN}==============================${off}"
+echo -e ""
+echo -e "${NC}Script By geovpn${off}"
+echo -e ""
