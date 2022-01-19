@@ -53,7 +53,6 @@ clear
 echo -e ""
 echo -e "======-XRAYS/TROJAN-======"
 echo -e "Remarks  : ${user}"
-echo -e "IP/Host  : ${MYIP}"
 echo -e "Address  : ${domain}"
 echo -e "Port     : ${tr}"
 echo -e "Key      : ${user}"
