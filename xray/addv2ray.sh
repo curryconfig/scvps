@@ -107,7 +107,7 @@ echo -e " AlterID        : 0"
 echo -e " Security       : auto"
 echo -e " Network        : ws"
 echo -e " Path           : geo${off}"
-echo -e "${cyan}==================================${off}"o sc di 6
+echo -e "${cyan}==================================${off}"
 echo -e "${purple}~> VMESS TLS : $off${xrayv2ray1}"
 echo -e "${cyan}==================================${off}"
 echo -e "${purple}~> VMESS NON-TLS : $off${xrayv2ray2}"
