@@ -120,9 +120,7 @@ apt -y install wget curl
 #figlet
 apt-get install figlet -y
 apt-get install ruby -y
-apt-get install lolcat -y
 gem install lolcat
-
 
 # set time GMT +7
 ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
@@ -136,7 +134,7 @@ echo "clear" >> .profile
 echo "figlet -f slant GEO GABUT | lolcat" >> .profile
 echo "sleep 0.5" >> .profile
 echo "clear" >> .profile
-echo "neofetch" >> .profile
+echo "neofetch --ascii_distro SliTaz" >> .profile
 echo "echo -e \" - Script Mod By Geo Gabut\" | lolcat" >> .profile
 echo "echo -e \"\x1b[96m - Silahkan Ketik\x1b[m \x1b[92mMENU\x1b[m \x1b[96mUntuk Melihat daftar Perintah\x1b[m\"" >> .profile
 
@@ -150,17 +148,21 @@ wget -O /etc/default/sslh "https://${geovpn}/sslh.conf"
 service sslh restart
 
 # install webserver
-apt -y install nginx
-cd
+apt -y install nginx php php-fpm php-cli php-mysql libxml-parser-perl
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
-wget -O /etc/nginx/nginx.conf "https://${geovpn}/nginx.conf"
+curl https://${geovpn}/nginx.conf > /etc/nginx/nginx.conf
+curl https://${geovpn}/vps.conf > /etc/nginx/conf.d/vps.conf
+sed -i 's/listen = \/var\/run\/php-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php/fpm/pool.d/www.conf
+useradd -m vps;
 mkdir -p /home/vps/public_html
-echo "<br><b><center><a href=\"https://wa.me/6282339191527\">GEO</a> - <a href=\"https://wa.me/6287756116610\">NURJANAH</a> GEO VPN STORE</center></b></br>" >> /home/vps/public_html/index.html
-wget -O /etc/nginx/conf.d/vps.conf "https://${geovpn}/vps.conf"
+echo "<?php phpinfo() ?>" > /home/vps/public_html/info.php
+chown -R www-data:www-data /home/vps/public_html
+chmod -R g+rw /home/vps/public_html
 cd /home/vps/public_html
 wget -O /home/vps/public_html/index.html "https://${geovpn}/index.html1"
 /etc/init.d/nginx restart
+cd
 
 # install badvpn
 cd
@@ -194,7 +196,7 @@ echo "/usr/sbin/nologin" >> /etc/shells
 # install squid
 cd
 apt -y install squid3
-wget -O /etc/squid/squid.conf "https://raw.githubusercontent.com/Sangarya/premium/main/sshvpn/squid3.conf"
+wget -O /etc/squid/squid.conf "https://${geovpn}/squid3.conf"
 sed -i $MYIP2 /etc/squid/squid.conf
 
 # setting vnstat
@@ -294,6 +296,11 @@ echo; echo 'Installation has completed.'
 echo 'Config file is at /usr/local/ddos/ddos.conf'
 echo 'Please send in your comments and/or suggestions to zaf@vsnl.com'
 
+# banner /etc/issue.net
+wget -O /etc/issue.net "https://raw.githubusercontent.com/Sangarya/premium/main/file/banner.conf"
+echo "Banner /etc/issue.net" >>/etc/ssh/sshd_config
+sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/issue.net"@g' /etc/default/dropbear
+
 # blockir torrent
 iptables -A FORWARD -m string --string "get_peers" --algo bm -j DROP
 iptables -A FORWARD -m string --string "announce_peer" --algo bm -j DROP
@@ -361,21 +368,23 @@ wget -O addtrgo "https://${geovpnnn}/addtrgo.sh"
 wget -O deltrgo "https://${geovpnnn}/deltrgo.sh"
 wget -O renewtrgo "https://${geovpnnn}/renewtrgo.sh"
 wget -O cektrgo "https://${geovpnnn}/cektrgo.sh"
-wget -O bebek "https://${geovpnnnnn}/bebek.sh"
-wget -O l2tp "https://${geovpnnnnn}/l2tp.sh"
-wget -O medo "https://${geovpnnnnn}/medo.sh"
+wget -O menu-backup "https://${geovpnnnnn}/menu-backup.sh"
+wget -O menu-domain "https://${geovpnnnnn}/menu-domain.sh"
+wget -O menu-l2tp "https://${geovpnnnnn}/menu-l2tp.sh"
 wget -O menu "https://${geovpnnnnn}/menu.sh"
-wget -O paneli "https://${geovpnnnnn}/paneli.sh"
-wget -O ppt "https://${geovpnnnnn}/ppt.sh"
-wget -O ssh "https://${geovpnnnnn}/ssh.sh"
-wget -O ssssr "https://${geovpnnnnn}/ssssr.sh"
-wget -O sstpp "https://${geovpnnnnn}/sstpp.sh"
-wget -O status "https://${geovpnnnnn}/status.sh"
-wget -O system "https://${geovpnnnnn}/system.sh"
-wget -O trojaan "https://${geovpnnnnn}/trojaan.sh"
-wget -O v2raay "https://${geovpnnnnn}/v2raay.sh"
-wget -O wgr "https://${geovpnnnnn}/wgr.sh"
+wget -O menu-pptp "https://${geovpnnnnn}/menu-pptp.sh"
+wget -O menu-shadowsocks "https://${geovpnnnnn}/menu-shadowsocks.sh"
+wget -O menu-ssh "https://${geovpnnnnn}/menu-ssh.sh"
+wget -O menu-sstp "https://${geovpnnnnn}/menu-sstp.sh"
+wget -O menu-tools "https://${geovpnnnnn}/menu-tools.sh"
+wget -O menu-trial "https://${geovpnnnnn}/menu-trial.sh"
+wget -O menu-trojan "https://${geovpnnnnn}/menu-trojan.sh"
+wget -O menu-v2ray "https://${geovpnnnnn}/menu-v2ray.sh"
+wget -O menu-vpn "https://${geovpnnnnn}/menu-vpn.sh"
+wget -O menu-wireguard "https://${geovpnnnnn}/menu-wireguard.sh"
 wget -O bbr "https://${geovpnnnnn}/bbr.sh"
+wget -O status "https://${geovpnnnnn}/status.sh"
+wget -O running "https://${geovpnnnnn}/running.sh"
 wget -O bannerku "https://${geovpnnnnn}/bannerku"
 wget -O bannerDOMAIN "https://${geovpnnnnnn}/bannerDOMAIN"
 wget -O bannerTRIAL "https://${geovpnnnnnn}/bannerTRIAL"
@@ -399,7 +408,7 @@ wget -O pointing "https://${geovpnnnnnnn}/pointing.sh"
 wget -O bw "https://${geovpnnnnnnn}/bw.sh"
 wget -O update "https://${geovpnnnnnnn}/update.sh"
 wget -O host "https://${geovpnnnnnnn}/host.sh"
-wget -O trial-akun "https://${geovpnnnnnnnn}/trial-akun.sh"
+#wget -O trial-akun "https://${geovpnnnnnnnn}/trial-akun.sh"
 wget -O triall2tp "https://${geovpnnnnnnnn}/triall2tp.sh"
 wget -O trialpptp "https://${geovpnnnnnnnn}/trialpptp.sh"
 wget -O trialss "https://${geovpnnnnnnnn}/trialss.sh"
@@ -408,8 +417,28 @@ wget -O trialssr "https://${geovpnnnnnnnn}/trialssr.sh"
 wget -O trialsstp "https://${geovpnnnnnnnn}/trialsstp.sh"
 wget -O trialtrojan "https://${geovpnnnnnnnn}/trialtrojan.sh"
 wget -O trialv2ray "https://${geovpnnnnnnnn}/trialv2ray.sh"
+wget -O /usr/bin/trialv2ray https://${geovpnnnnnnnn}/trialv2ray.sh && chmod +x /usr/bin/trialv2ray && cd /usr/bin && apt install -y dos2unix && dos2unix trialv2ray
 wget -O trialvless "https://${geovpnnnnnnnn}/trialvless.sh"
 wget -O trialwg "https://${geovpnnnnnnnn}/trialwg.sh"
+wget -O trialtrgo "https://${geovpnnnnnnnn}/trialtrgo.sh"
+chmod +x menu-backup
+chmod +x menu-domain
+chmod +x menu-l2tp
+chmod +x menu
+chmod +x menu-pptp
+chmod +x menu-shadowsocks
+chmod +x menu-ssh
+chmod +x menu-sstp
+chmod +x menu-tools
+chmod +x menu-trial
+chmod +x menu-trojan
+chmod +x menu-v2ray
+chmod +x menu-vpn
+chmod +x menu-wireguard
+chmod +x bbr
+chmod +x status
+chmod +x running
+chmod +x trialtrgo
 chmod +x trial-akun
 chmod +x trialpptp
 chmod +x trialss
@@ -468,21 +497,6 @@ chmod +x addtrgo
 chmod +x deltrgo
 chmod +x renewtrgo
 chmod +x cektrgo
-chmod +x bebek
-chmod +x l2tp
-chmod +x medo
-chmod +x menu
-chmod +x paneli
-chmod +x ppt
-chmod +x ssh
-chmod +x ssssr
-chmod +x sstpp
-chmod +x status
-chmod +x system
-chmod +x trojaan
-chmod +x v2raay
-chmod +x wgr
-chmod +x bbr
 chmod +x update
 chmod +x bannerku
 chmod +x bannerDOMAIN
@@ -524,8 +538,10 @@ chown -R www-data:www-data /home/vps/public_html
 /etc/init.d/ssh restart
 /etc/init.d/dropbear restart
 /etc/init.d/fail2ban restart
-/etc/init.d/stunnel4 restart
+/etc/init.d/sslh restart
+/etc/init.d/stunnel5 restart
 /etc/init.d/vnstat restart
+/etc/init.d/fail2ban restart
 /etc/init.d/squid restart
 screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7100 --max-clients 500
 screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7200 --max-clients 500
