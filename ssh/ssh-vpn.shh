@@ -120,11 +120,9 @@ apt -y install wget curl
 #figlet
 apt-get install figlet -y
 apt-get install ruby -y
+apt-get install lolcat -y
 gem install lolcat
-apt -y install python
-apt -y install tmux
-sudo snap install lolcat
-sudo apt-get install figlet
+
 
 # set time GMT +7
 ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
