@@ -11,7 +11,7 @@ FITUR SCRIPT
 ![IMG_20220119_213546](https://user-images.githubusercontent.com/96859296/150492584-8b9cbfce-a663-4ed1-b9dd-f6a3f595ab01.jpg)
 ![IMG_20211223_094048](https://user-images.githubusercontent.com/96859296/150492644-1ca0f337-8bf4-4b03-bba3-4491d764df95.jpg)
 
-Info / contact Order :
-Whatsapp : wa.me/+6282339191527
-Telegram : t.me/sampiiiiu
-Testimoni : https://t.me/testikuy_mang
+- [x] [WHATSAPP](http://wa.me/+6282339191527)
+- [x] [TELEGRAM](http://t.me/sampiiiiu)
+- [x] [TESTIMONI](https://t.me/testikuy_mang
+)
