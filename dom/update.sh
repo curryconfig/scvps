@@ -78,18 +78,6 @@ cp -r /root/openvpn.zip /home/vps/public_html/geo.zip
 rm -rf /root/OpenVPN
 rm -f /root/openvpn.zip
 fi
-# text gambar
-apt-get install boxes
-
-# color text
-cd
-# banner /etc/issue.net
-wget -O /etc/issue.net "https://vpnkuy.site/file/banner.conf"
-echo "Banner /etc/issue.net" >>/etc/ssh/sshd_config
-sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/issue.net"@g' /etc/default/dropbear
-
-cd /usr/bin
-wget -O /usr/bin/system https://github.com/geovpn/scriptvps/raw/main/menu/system.sh && chmod +x /usr/bin/system && cd /usr/bin && apt install -y dos2unix && dos2unix system
 
 echo "0 0 * * * root clear-log && xp" >> /etc/crontab
 echo "*/10 * * * * root xp-ws" >> /etc/crontab
