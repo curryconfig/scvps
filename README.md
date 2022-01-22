@@ -9,7 +9,8 @@ sysctl -w net.ipv6.conf.all.disable_ipv6=1 && sysctl -w net.ipv6.conf.default.di
 
 FITUR SCRIPT
 ![IMG_20220119_213546](https://user-images.githubusercontent.com/96859296/150492584-8b9cbfce-a663-4ed1-b9dd-f6a3f595ab01.jpg)
-![IMG_20211223_094048](https://user-images.githubusercontent.com/96859296/150492644-1ca0f337-8bf4-4b03-bba3-4491d764df95.jpg)
+
+![geo](https://user-images.githubusercontent.com/96859296/150624979-2539da30-acbf-47bf-a3e9-5e1ed110370f.jpg)
 
 - [x] [WHATSAPP](http://wa.me/+6282339191527)
 - [x] [TELEGRAM](http://t.me/sampiiiiu)
