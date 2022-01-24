@@ -56,8 +56,8 @@ rm -f setup.sh
 cd
 apt-get update --allow-releaseinfo-change -y > /dev/null
 
-apt-get update -y > /dev/null 
-apt-get upgrade -y > /dev/null
+apt-get update -y >/dev/null 2>&1
+apt-get upgrade -y >/dev/null 2>&1
 #install figlet & lolcat
 clear
 MYIP=$(wget -qO- https://icanhazip.com);
@@ -68,12 +68,12 @@ cat > /etc/hosts <<-END
 $MYIP   $host
 END
 
-apt-get install dbus -y > /dev/null
+apt-get install dbus -y >/dev/null 2>&1
 sudo hostnamectl set-hostname Setup-Geo-Project
 
-apt-get install figlet -y > /dev/null
-apt-get install ruby -y > /dev/null
-gem install lolcat
+apt-get install figlet -y >/dev/null 2>&1
+apt-get install ruby -y >/dev/null 2>&1
+gem install lolcat >/dev/null 2>&1
 clear
 if [ -f "/etc/xray/domain" ]; then
 echo "Script Already Installed"
@@ -85,37 +85,37 @@ echo "Installation V2RAY" | lolcat
 cd
 sleep 1
 echo "Create Domain CDN Cloudflare" | lolcat
-wget https://${geovpn}/cf.sh && chmod +x cf.sh && ./cf.sh > /dev/null
+wget https://${geovpn}/cf.sh && chmod +x cf.sh && ./cf.sh >/dev/null 2>&1
 echo "Installation SSH OVPN" | lolcat
-wget https://${geovpn}/ssh-vpn.sh && chmod +x ssh-vpn.sh && screen -S ssh-vpn ./ssh-vpn.sh > /dev/null
+wget https://${geovpn}/ssh-vpn.sh && chmod +x ssh-vpn.sh && screen -S ssh-vpn ./ssh-vpn.sh >/dev/null 2>&1
 echo "Installation SSTP" | lolcat
-wget https://${geovpnn}/sstp.sh && chmod +x sstp.sh && screen -S sstp ./sstp.sh > /dev/null
+wget https://${geovpnn}/sstp.sh && chmod +x sstp.sh && screen -S sstp ./sstp.sh >/dev/null 2>&1
 echo "Installation SSR" | lolcat
-wget https://${geovpnnn}/ssr.sh && chmod +x ssr.sh && screen -S ssr ./ssr.sh > /dev/null
+wget https://${geovpnnn}/ssr.sh && chmod +x ssr.sh && screen -S ssr ./ssr.sh >/dev/null 2>&1
 echo "Installation ShadowSock" | lolcat
-wget https://${geovpnnnn}/sodosok.sh && chmod +x sodosok.sh && screen -S ss ./sodosok.sh > /dev/null
+wget https://${geovpnnnn}/sodosok.sh && chmod +x sodosok.sh && screen -S ss ./sodosok.sh >/dev/null 2>&1
 echo "Installation Wireguard" | lolcat
-wget https://${geovpnnnnn}/wg.sh && chmod +x wg.sh && screen -S wg ./wg.sh > /dev/null
+wget https://${geovpnnnnn}/wg.sh && chmod +x wg.sh && screen -S wg ./wg.sh >/dev/null 2>&1
 echo "Installation XRAY" | lolcat
-wget https://${geovpnnnnnn}/ins-xray.sh && chmod +x ins-xray.sh && screen -S xray ./ins-xray.sh > /dev/null
+wget https://${geovpnnnnnn}/ins-xray.sh && chmod +x ins-xray.sh && screen -S xray ./ins-xray.sh >/dev/null 2>&1
 echo "Installation L2TP" | lolcat
-wget https://${geovpnnnnnnn}/ipsec.sh && chmod +x ipsec.sh && screen -S ipsec ./ipsec.sh > /dev/null
-wget https://${geovpnnnnnnnn}/set-br.sh && chmod +x set-br.sh && ./set-br.sh > /dev/null
+wget https://${geovpnnnnnnn}/ipsec.sh && chmod +x ipsec.sh && screen -S ipsec ./ipsec.sh >/dev/null 2>&1
+wget https://${geovpnnnnnnnn}/set-br.sh && chmod +x set-br.sh && ./set-br.sh >/dev/null 2>&1
 # echo "Installation Websocket" | lolcat
-wget https://${geovpnnnnnnnnn}/edu.sh && chmod +x edu.sh && ./edu.sh > /dev/null
+wget https://${geovpnnnnnnnnn}/edu.sh && chmod +x edu.sh && ./edu.sh >/dev/null 2>&1
 echo "Installation OHP SERVER" | lolcat
-wget https://${geovpnnnnnnnnnn}/ohp.sh && chmod +x ohp.sh && ./ohp.sh > /dev/null
+wget https://${geovpnnnnnnnnnn}/ohp.sh && chmod +x ohp.sh && ./ohp.sh >/dev/null 2>&1
 
-rm -f /root/ssh-vpn.sh
-rm -f /root/sstp.sh
-rm -f /root/wg.sh
-rm -f /root/ss.sh
-rm -f /root/ssr.sh
-rm -f /root/ins-xray.sh
-rm -f /root/ipsec.sh
-rm -f /root/set-br.sh
-rm -f /root/edu.sh
-rm -f /root/ohp.sh
+rm -f /root/ssh-vpn.sh >/dev/null 2>&1
+rm -f /root/sstp.sh >/dev/null 2>&1
+rm -f /root/wg.sh >/dev/null 2>&1
+rm -f /root/ss.sh >/dev/null 2>&1
+rm -f /root/ssr.sh >/dev/null 2>&1
+rm -f /root/ins-xray.sh >/dev/null 2>&1
+rm -f /root/ipsec.sh >/dev/null 2>&1
+rm -f /root/set-br.sh >/dev/null 2>&1
+rm -f /root/edu.sh >/dev/null 2>&1
+rm -f /root/ohp.sh >/dev/null 2>&1
 cat <<EOF> /etc/systemd/system/autosett.service
 [Unit]
 Description=autosetting
@@ -138,11 +138,11 @@ echo "2.9" > /home/ver
 echo " "
 figlet -c Instalation Success | lolcat
 echo " "
-echo "--------------------------------------------------------------------------------" | tee -a log-install.txt
-echo "================================= Premium Autoscript ===========================" | tee -a log-install.txt
-echo "--------------------------------------------------------------------------------" | tee -a log-install.txt
+echo "-----------------------------------" | tee -a log-install.txt
+echo "====== Premium Autoscript =======" | tee -a log-install.txt
+echo "-----------------------------------" | tee -a log-install.txt
 echo "" | tee -a log-install.txt
-echo "----------------------------------------------------------------------------" | tee -a log-install.txt
+echo "-----------------------------------" | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "   >>> Service & Port"  | tee -a log-install.txt
 echo "   - OpenSSH                 : 443, 22"  | tee -a log-install.txt
@@ -193,12 +193,12 @@ echo "   - Telegram                : T.me/geovpn"  | tee -a log-install.txt
 echo "   - Instagram               : ~"  | tee -a log-install.txt
 echo "   - Whatsapp                : ~"  | tee -a log-install.txt
 echo "   - Facebook                : ~" | tee -a log-install.txt
-echo "================================================================================" | tee -a log-install.txt
-echo "-------------------------- Created By Geo Project ---------------------------" | tee -a log-install.txt
-echo "================================================================================" | tee -a log-install.txt
+echo "=================================" | tee -a log-install.txt
+echo "----- Created By Geo Project ----" | tee -a log-install.txt
+echo "=================================" | tee -a log-install.txt
 echo ""
 echo " Reboot 5 Sec"
 sleep 5
-rm -f geo.sh
-rm -f setup.sh
+rm -f geo.sh >/dev/null 2>&1
+rm -f setup.sh >/dev/null 2>&1
 reboot
