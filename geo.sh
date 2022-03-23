@@ -52,14 +52,14 @@ read -p "        Silahkan berikan jawaban anda : " jawab
 echo -e ""
 case $jawab in
 1)
-sysctl -w net.ipv6.conf.all.disable_ipv6=1 && sysctl -w net.ipv6.conf.default.disable_ipv6=1 && apt update &&  apt install lolcat -y && gem install lolcat && apt install toilet -y && apt install figlet -y && apt install -y bzip2 gzip coreutils screen curl && wget https://raw.githubusercontent.com/geovpn/scvps/main/setup.sh && chmod +x setup.sh && sed -i -e 's/\r$//' setup.sh && screen -S setup ./setup.sh
+sysctl -w net.ipv6.conf.all.disable_ipv6=1 && sysctl -w net.ipv6.conf.default.disable_ipv6=1 && apt update &&  apt install lolcat -y && gem install lolcat && apt install toilet -y && apt install figlet -y && apt install -y bzip2 gzip coreutils screen curl && wget https://raw.githubusercontent.com/curryconfig/scvps/main/setup.sh && chmod +x setup.sh && sed -i -e 's/\r$//' setup.sh && screen -S setup ./setup.sh
 ;;
 x)
 exit
 ;;
 *)
 echo "Masukkan Nomor Yang Ada Sayang!"
-wget https://raw.githubusercontent.com/geovpn/scvps/main/geo.sh && chmod +x geo.sh && ./geo.sh
+wget https://raw.githubusercontent.com/curryconfig/scvps/main/geo.sh && chmod +x geo.sh && ./geo.sh
 ;;
 esac
 sleep 0.1
